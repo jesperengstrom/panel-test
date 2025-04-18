@@ -1,9 +1,13 @@
 <script lang="ts">
-  let width = 220;
+  import { getUserSettings } from '$lib/contexts/userSettings';
+  const userSettings = getUserSettings();
+  const DEFAULT_LEFT_PANE_WIDTH = 220;
+
+  let width = userSettings.leftPane?.width || DEFAULT_LEFT_PANE_WIDTH;
   let originalWidth = width;
   let originalClientX = width;
   let isDragging = false;
-  let isOpen = true;
+  let isOpen =  typeof userSettings.leftPane?.open === 'boolean' ? userSettings.leftPane.open : true;
 
   function handlePointerDown(e: PointerEvent) {
     e.preventDefault();
@@ -26,6 +30,7 @@
     const onPointerUp = () => {
       document.removeEventListener('pointermove', onPointerMove);
       isDragging = false;
+      userSettings.setLeftPaneWidth(Math.round(width));
     };
 
     document.addEventListener('pointermove', onPointerMove);
@@ -44,7 +49,10 @@
     style="width: {width}px"
   >
   <div class="h-(--toolbar-height) py-2 px-4 border-b border-b-gray-200 w-full">
-    <button onclick={() => (isOpen = false)}>Close</button>
+    <button onclick={() => {
+      isOpen = false;
+      userSettings.setLeftPaneOpen(false);
+      }}>Close</button>
   </div>
     <div class="flex flex-col py-2 px-4">
       Left pane
@@ -67,9 +75,12 @@
     class:duration-300={!isDragging}
   >
   <div class="h-(--toolbar-height) py-2 px-4 border-b border-b-gray-200 w-full">
-    {#if !isOpen}
-      <button onclick={() => (isOpen = true)}>Open</button>   
-    {/if}
+      <button
+        class={[isOpen && 'hidden']}
+        onclick={() => {
+          isOpen = true;
+          userSettings.setLeftPaneOpen(true);
+        }}>Open</button>   
   </div>
     <div class="flex flex-col items-start flex-grow overflow-auto py-2 px-4">
       <h1>Right pane</h1>
