@@ -2,7 +2,8 @@ import Cookies from 'js-cookie'
 import type { UserSettings as UserSettingsType } from '$lib/types/userSettings';
 
 enum availableSettings {
-	leftPane = 'leftPane'
+	leftPane = 'leftPane',
+	rightPane = 'rightPane'
 }
 
 export class UserSettings {
@@ -38,13 +39,29 @@ export class UserSettings {
 		this.update('leftPane', leftPane);
 	}
 
+	setRightPaneWidth(width: number) {
+		const rightPane = { ...this.settings?.rightPane };
+		rightPane.width = width;
+		this.update('rightPane', rightPane);
+	}
+
 	setLeftPaneOpen(open: boolean) {
 		const leftPane = { ...this.settings?.leftPane };
 		leftPane.open = open;
 		this.update('leftPane', leftPane);
 	}
 
+	setRightPaneOpen(open: boolean) {
+		const rightPane = { ...this.settings?.rightPane };
+		rightPane.open = open;
+		this.update('rightPane', rightPane);
+	}
+
 	get leftPane() {
 		return this.settings?.leftPane;
+	}
+
+	get rightPane() {
+		return this.settings?.rightPane;
 	}
 }

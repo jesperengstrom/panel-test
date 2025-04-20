@@ -4,24 +4,27 @@
     isDragging: boolean;
     minWidth: number;
     maxWidth: number;
+    side: 'left' | 'right'
     onDragEnd: () => void;
   }
 
   let { 
     width = $bindable(), 
     isDragging = $bindable(), 
-    minWidth, maxWidth, 
+    minWidth, 
+    maxWidth,
+    side,
     onDragEnd 
   }: DraggableProps = $props();
 
-  let originalWidth = $derived(width);
-  let originalClientX = $derived(width);
+  // let originalWidth = $derived(width);
+  // let originalClientX = $derived(width);
 
   function handlePointerDown(e: PointerEvent) {
     e.preventDefault();
 
-    originalWidth = width;
-    originalClientX = e.clientX;
+    // originalWidth = width;
+    // originalClientX = e.clientX;
     isDragging = true;
 
     const onPointerMove = (e: PointerEvent) => {
@@ -31,8 +34,17 @@
       //   isOpen = true
       // }
 
-      const newWidth = originalWidth + e.clientX - originalClientX;
-      width = Math.min(Math.max(newWidth, minWidth), maxWidth);
+      let pos = 0;
+      if (side === 'right') {
+        width = Math.min(Math.max(e.clientX, minWidth), maxWidth);
+      }
+      if (side === 'left') {
+        // pos = document.body.clientWidth - e.clientX;
+        width = Math.min(Math.max(document.body.clientWidth - e.clientX, minWidth), maxWidth);
+      }
+
+      // const newWidth = originalWidth + pos - originalClientX;
+      // width = Math.min(Math.max(newWidth, minWidth), maxWidth);
     };
 
     const onPointerUp = () => {
@@ -46,9 +58,9 @@
   }
 </script>
 
-<div class="absolute z-10 right-0 w-px bg-gray-200 flex-grow-0 top-0 bottom-0">
+<div class={`absolute z-10 ${side}-0 w-px bg-gray-200 top-0 bottom-0`}>
   <div
-    class="absolute -left-[5px] w-3 h-full cursor-col-resize"
+    class="absolute -left-[5px] w-4 h-full cursor-col-resize"
     onpointerdown={handlePointerDown}>
   </div>
 </div>

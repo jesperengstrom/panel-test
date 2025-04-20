@@ -3,4 +3,8 @@ export type UserSettings = {
     width?: number;
     open?: boolean;
   }
+  rightPane?: {
+    width?: number;
+    open?: boolean;
+  }
 };
