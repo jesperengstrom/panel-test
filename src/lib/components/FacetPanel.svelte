@@ -4,7 +4,7 @@
   const arr = new Array(50);
 </script>
 
-<nav class="facet-panel">
+<div class="facet-panel">
   <div class="h-(--toolbar-height) py-2 px-4 border-b border-b-gray-200 w-full">
     <button onclick={() => userSettings.setLeftPaneOpen(false)}>Close</button>
   </div>
@@ -15,4 +15,4 @@
       </li>
     {/each}
   </ol>
-</nav>
+</div>
