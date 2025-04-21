@@ -16,9 +16,10 @@
 </script>
 
 <div class="flex w-screen">
+  <!-- left pane -->
   <nav 
     class={[
-      'fixed top-(--header-height) bottom-0 left-0 bg-gray-50 transition-transform', 
+      'fixed top-(--header-height) bottom-0 left-0 bg-gray-50 transition-transform overscroll-contain', 
       leftPaneOpen ? 'translate-x-0' : '-translate-x-full',
       !isDragging && 'overflow-y-scroll overflow-x-hidden'
     ]}

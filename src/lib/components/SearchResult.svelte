@@ -1,12 +1,14 @@
 <script lang="ts">
   import { getUserSettings } from '$lib/contexts/userSettings';
+  import { page } from '$app/state';
   import Draggable from './Draggable.svelte';
   import SearchResultCard from './SearchResultCard.svelte';
   import { DEFAULT_PANEL_WIDTH } from './constants/constants';
+  import PreviewPanel from './PreviewPanel.svelte';
 
   const userSettings = getUserSettings();
   let rightPaneWidth = $state(userSettings.rightPane?.width || DEFAULT_PANEL_WIDTH);
-  const rightPaneOpen = $derived(userSettings.rightPane?.open);
+  const rightPaneOpen = $derived(page.url.searchParams.has('preview'));
   let isDragging = $state(false);
 
   const arr = new Array(20);
@@ -30,10 +32,11 @@
       onclick={() => userSettings.setRightPaneOpen(true)}>Open right</button>
   </div>
   <div class="flex flex-col py-2 px-4">
-    {#each arr as a}
-      <SearchResultCard />
+    {#each arr as a, index}
+      <SearchResultCard {index} />
     {/each}
   </div>
+  <!-- right pane -->
   <nav
     class={[
       'fixed top-(--header-height) bottom-0 right-0 bg-gray-50 transition-transform', 
@@ -47,5 +50,6 @@
       minWidth={200} 
       maxWidth={400}
       {onDragEnd} />
+    <PreviewPanel />
   </nav>
 </div>

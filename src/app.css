@@ -4,3 +4,9 @@
   --header-height: 4rem;
   --toolbar-height: 3rem;
 }
+
+@layer base {
+  button {
+    cursor: pointer;
+  }
+}

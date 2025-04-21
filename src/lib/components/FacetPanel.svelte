@@ -4,7 +4,7 @@
   const arr = new Array(50);
 </script>
 
-<div class="h-(--toolbar-height) sticky top-0 py-2 px-4 border-b bg-gray-50 border-b-gray-200 w-full">
+<div class="h-(--toolbar-height) sticky top-0 py-2 px-4 border-b bg-gray-50 border-b-gray-200 w-full flex items-center">
   <button onclick={() => userSettings.setLeftPaneOpen(false)}>Close</button>
 </div>
 <ol class="py-2 px-4 list-disc list-inside">
