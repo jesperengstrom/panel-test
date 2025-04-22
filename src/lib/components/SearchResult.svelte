@@ -31,7 +31,7 @@
       class={[userSettings.rightPane?.open && 'hidden']}
       onclick={() => userSettings.setRightPaneOpen(true)}>Open right</button>
   </div>
-  <div class="flex flex-col py-2 px-4">
+  <div class="flex mt-(--toolbar-height) flex-col py-2 px-4">
     {#each arr as a, index}
       <SearchResultCard {index} />
     {/each}

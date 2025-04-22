@@ -15,7 +15,7 @@
   }
 </script>
 
-<div class="flex w-screen">
+<div class="flex max-w-screen">
   <!-- left pane -->
   <nav 
     class={[

@@ -17,14 +17,8 @@
     onDragEnd 
   }: DraggableProps = $props();
 
-  // let originalWidth = $derived(width);
-  // let originalClientX = $derived(width);
-
   function handlePointerDown(e: PointerEvent) {
     e.preventDefault();
-
-    // originalWidth = width;
-    // originalClientX = e.clientX;
     isDragging = true;
 
     const onPointerMove = (e: PointerEvent) => {
@@ -39,12 +33,8 @@
         width = Math.min(Math.max(e.clientX, minWidth), maxWidth);
       }
       if (side === 'left') {
-        // pos = document.body.clientWidth - e.clientX;
         width = Math.min(Math.max(document.body.clientWidth - e.clientX, minWidth), maxWidth);
       }
-
-      // const newWidth = originalWidth + pos - originalClientX;
-      // width = Math.min(Math.max(newWidth, minWidth), maxWidth);
     };
 
     const onPointerUp = () => {
