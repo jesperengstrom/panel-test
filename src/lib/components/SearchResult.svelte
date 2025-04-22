@@ -23,7 +23,7 @@
   class={[
     isDragging ? 'transition-none' : 'transition-all'
   ]}>
-  <div class="sticky top-(--header-height) h-(--toolbar-height) flex py-2 px-4 border-b border-b-gray-200 w-full bg-white">
+  <div class="fixed top-(--header-height) h-(--toolbar-height) flex py-2 px-4 border-b border-b-gray-200 w-full bg-white">
     <button
       class={[userSettings.leftPane?.open && 'hidden']}
       onclick={() => userSettings.setLeftPaneOpen(true)}>Open left</button>
